@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+</head>
+
+<body>
+    <h1>Upload PDF</h1>
+    <input type="file" id="pdfFile" accept=".pdf">
+    <button onclick="uploadPDF()">Upload</button>
+    <div id="output"></div>
+
+    <script>
+        async function uploadPDF() {
+            const fileInput = document.getElementById('pdfFile');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function (event) {
+                const typedarray = new Uint8Array(event.target.result);
+                const pdf = await pdfjsLib.getDocument({ data: typedarray }).promise;
+                const numPages = pdf.numPages;
+
+                let textContent = '';
+                for (let i = 1; i <= numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const text = await page.getTextContent();
+                    textContent += text.items.map(item => item.str).join(' ');
+                }
+
+                alert(textContent);
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+    </script>
+</body>
+
+</html>

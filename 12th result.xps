@@ -1,0 +1,512 @@
+1. 
+POST
+localhost:5000/api/teacher/login
+{
+
+  "myemail": "propslux@gmail.com",
+  "password": "pass"
+}
+
+response : 
+
+{
+    "encryptedPrivateKey": "ZDFjODQxYzY0YjVjYmE5NDBiODA4ZGRjMzRhYmJmYmE4NjMyNTU1ZjdlZjViNDk4NzI4MTRmZTJlNTE5MjIwYWE5MzQ4ZTg0ZmNlYjg2ZTBiNjk3ZDc4MzM0ZGRjM2ExZTBkOTA5YjM5ZTVhZjM4ZDE3OGI4OTQ3ODhjNTFmMzNjYzM3ZmU5ODZkNWFjNTgwZDAwODFkZTJjNjcwMDZlNw==",
+    "name": "t8",
+    "email": "t8@gmail.com"
+}
+
+2.
+POST
+/api/teacher/add
+
+{
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb3BzbHV4QGdtYWlsLmNvbSIsImlhdCI6MTcxMzU1NjIwMiwiZXhwIjoxNzEzNTU5ODAyfQ.yNUNo1IkjykxE1JtF85DgXBcE81RDqDQJNNuiU14Cgs",
+     "name": "t4",
+    "email": "shellygreatbuddy@gmail.com",
+  "message": "abdsded",
+    "pdf": {
+    "name": "admin",
+    "email": "propslux@gmail.com",
+    "encprivateKey": "YmNkOTU2MmVkOTdiYWI3OTAzMGJkZjFlNDk3ODU1NzBmYmM5MGZjYTk3Y2JjNGIxZTIzNWVkOGJhMmM1N2IzMWM3MjRhMDE2MTM1MzVlZTcwMTY3ZDA3YWIyMDQzNDVmMTViNDU2YmU4OTVkZjM1NjAyMzUxNTNlNWIyYzFiOGVkZTMwNjAyZGYxMjI3MTkxMTYyMWFiMzc5MGU3NGJkNQ=="
+  }
+
+}
+
+
+
+
+3. 
+POST
+/api/teacher/change-password
+
+{
+
+  "myemail":"shellygreatbuddy@gmail.com",
+  "oldPassword": "kgqlqfj3",
+    "newPassword": "pass",
+    "message":"hello",
+   "pdf": {
+    "name": "admin",
+    "email": "t3@gmail.com",
+    "encprivateKey": "MzFjYTA5ODIyNWUyYjQxNzk3MTU2MzMwZDMyNDI4N2NjMzU4ZTJkZjQ3MzQ5MTI4ZThhNjY2YjgxMWYzM2M0NzRhNDAyZDFmNjliZTZlZGVjMGM5NTAyOWFhMjNhNGRiOGUyZDM5NGZiNjQwNzBjMzk4NmIzNjBiYjA0OTllNGYyMzg0Y2I4MWQ5OGY0ZjcyNzlhYzUzMjZhMTc2NGRlYg=="
+  }
+
+}
+4.
+POST
+/api/teacher/students
+
+{
+   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb3BzbHV4QGdtYWlsLmNvbSIsImlhdCI6MTcxMzU1MjgyNSwiZXhwIjoxNzEzNTU2NDI1fQ.kzHzTxocCrnJ6jFUJQV7_SYYMpMRjzRRUWZIQROYk40",
+"students":[
+     {
+            "name":"s1"
+        },
+         {
+            "name":"s2"
+        }, {
+            "name":"s3"
+        },
+        {
+            "name":"s4"
+        }
+    ],
+    "message":"abc",
+   "pdf": {
+    "name": "admin",
+    "email": "propslux@gmail.com",
+    "encprivateKey": "YmNkOTU2MmVkOTdiYWI3OTAzMGJkZjFlNDk3ODU1NzBmYmM5MGZjYTk3Y2JjNGIxZTIzNWVkOGJhMmM1N2IzMWM3MjRhMDE2MTM1MzVlZTcwMTY3ZDA3YWIyMDQzNDVmMTViNDU2YmU4OTVkZjM1NjAyMzUxNTNlNWIyYzFiOGVkZTMwNjAyZGYxMjI3MTkxMTYyMWFiMzc5MGU3NGJkNQ=="
+  }
+}
+
+5.
+POST    ->    only for admin  -> list all the students in the institution
+/api/teacher/getstudents
+
+to get the list of students
+
+input
+{
+   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb3BzbHV4QGdtYWlsLmNvbSIsImlhdCI6MTcxMzU1MjgyNSwiZXhwIjoxNzEzNTU2NDI1fQ.kzHzTxocCrnJ6jFUJQV7_SYYMpMRjzRRUWZIQROYk40"
+}
+
+output
+
+{
+    "students": [
+        {
+            "_id": "66220289ea059244cff8f5df",
+            "name": "s1",
+            "enrollmentNumber": "1",
+            "subjects": [
+                {
+                    "attendance": 4,
+                    "totalattendance": 6,
+                    "marks": 10,
+                    "totalmarks": 20,
+                    "_id": "663135399099d26e9feebed1"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 0,
+                    "totalmarks": 0,
+                    "_id": "663135399099d26e9feebed2"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 0,
+                    "totalmarks": 0,
+                    "_id": "663135399099d26e9feebed3"
+                }
+            ],
+            "__v": 3
+        },
+        {
+            "_id": "66220289ea059244cff8f5e0",
+            "name": "s2",
+            "enrollmentNumber": "2",
+            "subjects": [
+                {
+                    "attendance": 1,
+                    "totalattendance": 6,
+                    "marks": 11,
+                    "totalmarks": 12,
+                    "_id": "663135399099d26e9feebeda"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 10,
+                    "totalmarks": 20,
+                    "_id": "663135399099d26e9feebedb"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 0,
+                    "totalmarks": 0,
+                    "_id": "663135399099d26e9feebedc"
+                }
+            ],
+            "__v": 3
+        },
+        {
+            "_id": "66220289ea059244cff8f5e1",
+            "name": "s3",
+            "enrollmentNumber": "3",
+            "subjects": [
+                {
+                    "attendance": 4,
+                    "totalattendance": 5,
+                    "marks": 0,
+                    "totalmarks": 12,
+                    "_id": "6631353a9099d26e9feebee5"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 0,
+                    "totalmarks": 0,
+                    "_id": "6631353a9099d26e9feebee6"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 0,
+                    "totalmarks": 0,
+                    "_id": "6631353a9099d26e9feebee7"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 0,
+                    "totalmarks": 0,
+                    "_id": "6631353a9099d26e9feebee8"
+                }
+            ],
+            "__v": 4
+        },
+        {
+            "_id": "66220289ea059244cff8f5e2",
+            "name": "s4",
+            "enrollmentNumber": "4",
+            "subjects": [
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 12,
+                    "totalmarks": 20,
+                    "_id": "6631353a9099d26e9feebeed"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 0,
+                    "totalmarks": 0,
+                    "_id": "6631353a9099d26e9feebeee"
+                }
+            ],
+            "__v": 2
+        },
+        {
+            "_id": "6622c0f83393f3df5ab8c0b4",
+            "name": "s6",
+            "enrollmentNumber": "6",
+            "subjects": [
+                {
+                    "attendance": 0,
+                    "totalattendance": 2,
+                    "marks": 5,
+                    "totalmarks": 10,
+                    "_id": "6631353a9099d26e9feebef5"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 0,
+                    "totalmarks": 0,
+                    "_id": "6631353a9099d26e9feebef6"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 0,
+                    "totalmarks": 0,
+                    "_id": "6631353a9099d26e9feebef7"
+                }
+            ],
+            "__v": 3
+        },
+        {
+            "_id": "6622c0f83393f3df5ab8c0b3",
+            "name": "s5",
+            "enrollmentNumber": "5",
+            "subjects": [
+                {
+                    "attendance": 2,
+                    "totalattendance": 2,
+                    "marks": 6,
+                    "totalmarks": 10,
+                    "_id": "6631353a9099d26e9feebefc"
+                },
+                {
+                    "attendance": 0,
+                    "totalattendance": 0,
+                    "marks": 0,
+                    "totalmarks": 0,
+                    "_id": "6631353a9099d26e9feebefd"
+                }
+            ],
+            "__v": 2
+        },
+        {
+            "_id": "662cf5cb176e69bf964e8414",
+            "name": "ts3",
+            "enrollmentNumber": "8",
+            "subjects": [],
+            "__v": 0
+        },
+        {
+            "_id": "662cf5cb176e69bf964e8413",
+            "name": "ts1",
+            "enrollmentNumber": "7",
+            "subjects": [],
+            "__v": 0
+        }
+    ]
+}
+
+6.
+POST
+/api/teacher
+
+to get list of teachers and the subjects they teach
+
+input : 
+
+{
+   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb3BzbHV4QGdtYWlsLmNvbSIsImlhdCI6MTcxMzU1MjgyNSwiZXhwIjoxNzEzNTU2NDI1fQ.kzHzTxocCrnJ6jFUJQV7_SYYMpMRjzRRUWZIQROYk40"
+}
+
+output 
+
+{
+    "teachers": [
+        {
+            "name": "t1",
+            "email": "t1@gmail.com",
+            "regno": 2,
+            "active": true,
+            "subjectsTaught": [
+                {
+                    "name": "sub1",
+                    "students": [
+                        {
+                            "name": "s1",
+                            "enrollmentNumber": "1"
+                        },
+                        {
+                            "name": "s2",
+                            "enrollmentNumber": "2"
+                        },
+                        {
+                            "name": "s3",
+                            "enrollmentNumber": "3"
+                        }
+                    ]
+                },
+                {
+                    "name": "sub2",
+                    "students": [
+                        {
+                            "name": "s2",
+                            "enrollmentNumber": "2"
+                        },
+                        {
+                            "name": "s4",
+                            "enrollmentNumber": "4"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "t2",
+            "email": "t2@gmail.com",
+            "regno": 3,
+            "active": true,
+            "subjectsTaught": [
+                {
+                    "name": "sub3",
+                    "students": [
+                        {
+                            "name": "s1",
+                            "enrollmentNumber": "1"
+                        },
+                        {
+                            "name": "s3",
+                            "enrollmentNumber": "3"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "t3",
+            "email": "t3@gmail.com",
+            "regno": 4,
+            "active": true,
+            "subjectsTaught": [
+                {
+                    "name": "sub4",
+                    "students": [
+                        {
+                            "name": "s1",
+                            "enrollmentNumber": "1"
+                        },
+                        {
+                            "name": "s2",
+                            "enrollmentNumber": "2"
+                        },
+                        {
+                            "name": "s3",
+                            "enrollmentNumber": "3"
+                        },
+                        {
+                            "name": "s4",
+                            "enrollmentNumber": "4"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "t4",
+            "email": "shellygreatbuddy@gmail.com",
+            "regno": 5,
+            "active": true,
+            "subjectsTaught": []
+        }
+    ]
+}
+
+7.
+POST
+/api/teacher/subject
+
+only for admin
+
+input : 
+
+{
+   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb3BzbHV4QGdtYWlsLmNvbSIsImlhdCI6MTcxMzU1MjgyNSwiZXhwIjoxNzEzNTU2NDI1fQ.kzHzTxocCrnJ6jFUJQV7_SYYMpMRjzRRUWZIQROYk40",    "regno":4, /of teacher who will teach this subject
+    "subjectName":"sub4",
+    "studentsEnrollmentNumbers":[1,2,3,4],
+   "message":"abc",
+   "pdf": {
+    "name": "admin",
+    "email": "propslux@gmail.com",
+    "encprivateKey": "YmNkOTU2MmVkOTdiYWI3OTAzMGJkZjFlNDk3ODU1NzBmYmM5MGZjYTk3Y2JjNGIxZTIzNWVkOGJhMmM1N2IzMWM3MjRhMDE2MTM1MzVlZTcwMTY3ZDA3YWIyMDQzNDVmMTViNDU2YmU4OTVkZjM1NjAyMzUxNTNlNWIyYzFiOGVkZTMwNjAyZGYxMjI3MTkxMTYyMWFiMzc5MGU3NGJkNQ=="
+  }
+}
+
+output : 
+
+{
+    "message": "Subject allotted successfully"
+}
+
+8.
+GET
+
+/api/teacher/subjects
+
+if requested by admin -> it will return all the subjects taught in the university with their students and teacher and all the other details
+
+if requested by other teachers -> it will return only the subjects taught by them with all the other details
+
+input : 
+
+
+{
+   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoZWxseWdyZWF0YnVkZHlAZ21haWwuY29tIiwiaWF0IjoxNzEzNTUzNDcwLCJleHAiOjE3MTM1NTcwNzB9.VV1-c06iG95gfvRZKy8kI3yixAnOxhp3lbjApjHl7wE"
+}
+
+output : 
+{
+    "subjects": [
+        {
+            "_id": "6622c3e93393f3df5ab8c149",
+            "name": "sub4",
+            "teacher": {
+                "regno": 5,
+                "email": "shellygreatbuddy@gmail.com",
+                "name": "t4"
+            },
+            "students": [
+                {
+                    "name": "s5",
+                    "enrollmentNumber": "5",
+                    "attendance": 0,
+                    "totalAttendance": 0,
+                    "marks": 0,
+                    "totalMarks": 0
+                },
+                {
+                    "name": "s6",
+                    "enrollmentNumber": "6",
+                    "attendance": 0,
+                    "totalAttendance": 0,
+                    "marks": 0,
+                    "totalMarks": 0
+                }
+            ]
+        }
+    ]
+}
+
+9. POST
+
+api/document
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InQxQGdtYWlsLmNvbSIsImlhdCI6MTcxMzU1NTc0OSwiZXhwIjoxNzEzNTU5MzQ5fQ.dGKm5ZCUTXLcCQxZwjUvQLKjPWrhM11Gnm7xen5Dx-0",
+    "SubjectId": "662202daea059244cff8f5fd",
+    "message":"abc",
+    "data":{"4"
+/*this is student's enroll no while updating marks*/:{"marks":6,
+                "totalmarks":10},
+            "2":{"marks":5,
+                "totalmarks":10},
+            "3":{"marks":0,
+                "totalmarks":12}},
+    "documentName":"sub2 marks",
+    "documentType":"marks",
+   "pdf": {
+    "name": "t1",
+    "email": "t1@gmail.com",
+    "encprivateKey": "NGZiNmI3YzQ0ZjRkZjMxZmIyNjc0MmUzM2JiYzlkYjJiNzU1M2I5OGY1Y2RhNTA3YTFhMzBlZWUwNzEzMmM5YTY2MGU5ZDgyZWU0OTY1YzhhYmRiMGQ1MjMyOGUzYWVmOTFlZDg0ZWNhNzNmMTY2N2Y5ZTQ3ZmUzMWM1ZDY2YjUxZWUzYzEwM2QwZTZhYWNmZWE2N2VlOTljYThjM2NiNA=="
+  }
+}
+
+
+input to upload attendance
+
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoZWxseWdyZWF0YnVkZHlAZ21haWwuY29tIiwiaWF0IjoxNzEzNTU2NDUyLCJleHAiOjE3MTM1NjAwNTJ9.TVrFUl5kaWnUe1Fo8NE2-Z9FN-GLpeT7h8dZkYyuoYE",
+    "SubjectId": "6622c3e93393f3df5ab8c149",
+    "message":"abc",
+    "data":{"5":"P",
+            "6":"A"
+        },
+    "documentName":"sub4 marks",
+    "documentType":"attendance",
+   "pdf": {
+    "name": "t1",
+    "email": "shellygreatbuddy@gmail.com",
+    "encprivateKey": "OTQ2NjFlOTEyMzQzZjUzNmVkOTM2NjdiYTVkYTU3M2QwNjkxNjMyZTk1OTFhZDgzYjMwMDkwMTc5ZTY1NTg4NDFiMTlmN2RhY2Y1ZjA3Yjk2OTMzMTk0YmJmMDBkNWY2NmJmZDdiZTE4OTUyYWM4MDBmZWUwMGE5MmI3MThlOGU0Mjk1YWQ4NWU0NDNlNDQyOWI2NDNmZDA0ZWMyYjMzYg=="
+  }
+}

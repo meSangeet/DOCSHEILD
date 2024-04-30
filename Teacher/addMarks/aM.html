@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Marks</title>
+<link rel="stylesheet" href="aM.css">
+</head>
+<body>
+<div class="container">
+<h1>Add Marks</h1>
+<form id="marksForm">
+<label for="subjectId">Subject ID:</label>
+<input type="text" id="subjectId" name="subjectId" required><br><br>
+<div id="marksContainer">
+<div class="studentMarks">
+<input type="text" class="enrollmentNo" name="enrollmentNo[]" placeholder="Enrollment No" required>
+<input type="number" class="marks" name="marks[]" placeholder="Marks" required>
+<input type="number" class="totalMarks" name="totalMarks[]" placeholder="Total Marks" required>
+<button type="button" class="addBtn">+</button>
+<button type="button" class="removeBtn">-</button>
+</div>
+</div><br>
+<label for="email">Email:</label>
+<input type="email" id="email" name="email" required><br><br>
+<label for="privateKey">Private Key:</label>
+<input type="text" id="privateKey" name="privateKey" required><br><br>
+<button type="submit">Upload Marks</button>
+</form>
+</div>
+<script src="aM.js"></script>
+</body>
+</html>

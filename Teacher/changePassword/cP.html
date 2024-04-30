@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password Page</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="password"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Change Password</h1>
+        <form id="changePasswordForm">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required><br>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+            <label for="oldPassword">Old Password:</label>
+            <input type="password" id="oldPassword" name="oldPassword" required><br>
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required><br>
+            <input type="file" id="pdfFile" accept=".pdf"><br>
+            <button type="button" onclick="changePassword()">Change Password</button>
+        </form>
+        <div id="output"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
+    <script>
+        async function changePassword() {
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            const oldPassword = document.getElementById('oldPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const pdfFile = document.getElementById('pdfFile').files[0];
+
+            if (!pdfFile) {
+                alert('Please select a PDF file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function (event) {
+                const typedarray = new Uint8Array(event.target.result);
+                const pdf = await pdfjsLib.getDocument({ data: typedarray }).promise;
+                const numPages = pdf.numPages;
+
+                let textContent = '';
+                for (let i = 1; i <= numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const text = await page.getTextContent();
+                    textContent += text.items.map(item => item.str).join(' ');
+                }
+
+                let str = textContent;
+                let colonIndex = str.indexOf(':');
+                let mainPrivateKey = str.substring(colonIndex + 2);
+
+                // Prepare data object for the API request
+                const data = {
+                    myemail: email,
+                    oldPassword: oldPassword,
+                    newPassword: newPassword,
+                    message: 'hello',
+                    pdf: {
+                        name: name,
+                        email: email,
+                        encprivateKey: mainPrivateKey
+                    }
+                };
+
+                try {
+                    const response = await fetch('http://localhost:5000/api/teacher/change-password', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const responseData = await response.json();
+
+                    if (response.ok) {
+                        document.getElementById('output').textContent = responseData.message;
+                    } else {
+                        document.getElementById('output').textContent = 'Failed to change password';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('output').textContent = 'Failed to change password';
+                }
+            };
+
+            reader.readAsArrayBuffer(pdfFile);
+        }
+    </script>
+</body>
+
+</html>

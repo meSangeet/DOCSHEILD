@@ -18,18 +18,24 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         });
 
         const data = await response.json();
+        console.log(data);
         if (response.ok) {
-            if (data.email === 'propslux@gmail.com') {
-                showMessage('Admin login successful', 'success');
-                // Redirect or perform other actions for admin
-                window.location.href = '/Admin/Admin.html';
+            if (data.encryptedPrivateKey) {
+                // First-time login
+                const pdfData = `Encrypted Private Key: ${data.encryptedPrivateKey}\nName: ${data.name}\nEmail: ${data.email}`;
+                downloadPDF(pdfData, 'first_time_login.pdf');
+                showMessage('First-time login. PDF downloaded.', 'success');
+                // Redirect to change password page
+                window.location.href = '/changePassword.html';
             } else {
-                showMessage('Teacher login successful', 'success');
-                // Redirect or perform other actions for teacher
+                // Non-first-time login
+                showMessage('Login successful', 'success');
+                // Redirect to teacher dashboard
                 window.location.href = '/Admin/Admin-dash.html';
             }
 
             document.cookie = `token=${data.token}; expires=${new Date(data.expiresAt).toUTCString()}; path=/`;
+            document.cookie = `username=${username}; path=/`; // Store username as cookie
 
         } else {
             showMessage(data.message, 'error');
@@ -45,4 +51,10 @@ function showMessage(message, type) {
     const messageDiv = document.getElementById('message');
     messageDiv.textContent = message;
     messageDiv.className = type;
+}
+
+function downloadPDF(pdfData, filename) {
+    const doc = new jsPDF();
+    doc.text(pdfData, 10, 10);
+    doc.save(filename);
 }

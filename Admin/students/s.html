@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Students</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+        }
+
+        .button-container {
+            margin-bottom: 20px;
+        }
+
+        button {
+            display: block;
+            margin-bottom: 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+
+        #closePopup {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+        }
+
+        .blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            filter: blur(5px);
+            z-index: 999;
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <h1>List of Students</h1>
+    <div class="button-container" id="studentList"></div>
+</div>
+
+<div id="popup" class="popup">
+    <button id="closePopup">Close</button>
+    <div id="studentInfo"></div>
+</div>
+
+<div id="pageBlur" class="blur"></div>
+
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    const token = getCookie('token');
+
+    async function getStudents() {
+            try {
+                const response = await fetch('http://localhost:5000/api/teacher/getstudents', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token
+                    })
+                });
+
+                const responseData = await response.json();
+
+                if (response.ok) {
+                    const studentListDiv = document.getElementById('studentList');
+                    responseData.students.forEach(student => {
+                        const button = document.createElement('button');
+                        button.textContent = `${student.name} - Enroll no: ${student.enrollmentNumber}`;
+                        button.addEventListener('click', () => {
+                            showPopup(student);
+                        });
+                        studentListDiv.appendChild(button);
+                    });
+                } else {
+                    alert('Failed to get student list');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to get student list');
+            }
+        }
+
+        function showPopup(student) {
+            const popup = document.getElementById('popup');
+            const studentInfoDiv = document.getElementById('studentInfo');
+            studentInfoDiv.innerHTML = `
+                <h2>${student.name} - Enroll no: ${student.enrollmentNumber}</h2>
+                ${student.subjects.map(subject => `
+                    <div>
+                        <h3>Subject ID: ${subject._id}</h3>
+                        <p>Attendance: ${subject.attendance}/${subject.totalattendance}</p>
+                        <p>Marks: ${subject.marks}/${subject.totalmarks}</p>
+                    </div>
+                `).join('')}
+            `;
+            popup.style.display = 'block';
+            document.getElementById('pageBlur').style.display = 'block';
+
+            document.getElementById('closePopup').addEventListener('click', () => {
+                popup.style.display = 'none';
+                document.getElementById('pageBlur').style.display = 'none';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            getStudents();
+        });
+    </script>
+</body>
+
+</html>

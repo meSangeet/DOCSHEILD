@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Subject</title>
+<link rel="stylesheet" href="aSb.css">
+</head>
+<body>
+<div class="container">
+<h1>Create Subject</h1>
+<form id="subjectForm">
+<label for="subjectName">Subject Name:</label>
+<input type="text" id="subjectName" name="subjectName" required><br><br>
+<label>Students Enrollment Numbers:</label><br>
+<div id="studentsContainer">
+<input type="text" class="enrollmentNumber" name="enrollmentNumber[]" required>
+<button type="button" class="addBtn">+</button>
+</div><br>
+<label for="teacherRegNo">Teacher Registration Number:</label>
+<input type="text" id="teacherRegNo" name="teacherRegNo" required><br><br>
+<button type="submit">Create Subject</button>
+</form>
+</div>
+<script src="aSb.js"></script>
+</body>
+</html>
