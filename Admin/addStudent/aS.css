@@ -41,18 +41,27 @@ input[type="text"] {
 }
 
 button {
+    display: block;
+    width: 100%;
     padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    background: #10182F;
+    color: #fff;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
+
 #addStudentBtn {
-    background-color: #28a745;
+    background: #10182F;
     color: white;
 }
 
 .remove-btn {
-    background-color: #dc3545;
+    background: #10182F;
     color: white;
 }

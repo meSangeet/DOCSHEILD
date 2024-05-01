@@ -1,33 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add Marks</title>
-<link rel="stylesheet" href="aM.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Marks</title>
+    <link rel="stylesheet" href="aM.css">
+    <link rel="stylesheet" href="../Admin.css">
 </head>
+
 <body>
-<div class="container">
-<h1>Add Marks</h1>
-<form id="marksForm">
-<label for="subjectId">Subject ID:</label>
-<input type="text" id="subjectId" name="subjectId" required><br><br>
-<div id="marksContainer">
-<div class="studentMarks">
-<input type="text" class="enrollmentNo" name="enrollmentNo[]" placeholder="Enrollment No" required>
-<input type="number" class="marks" name="marks[]" placeholder="Marks" required>
-<input type="number" class="totalMarks" name="totalMarks[]" placeholder="Total Marks" required>
-<button type="button" class="addBtn">+</button>
-<button type="button" class="removeBtn">-</button>
-</div>
-</div><br>
-<label for="email">Email:</label>
-<input type="email" id="email" name="email" required><br><br>
-<label for="privateKey">Private Key:</label>
-<input type="text" id="privateKey" name="privateKey" required><br><br>
-<button type="submit">Upload Marks</button>
-</form>
-</div>
-<script src="aM.js"></script>
+    <header>
+        <div class="contain">
+          <nav>
+            <div class="logo">
+              <img src="img/logo.jpg" alt="" />
+              <h2><span>D</span>oc<span>S</span>hield</h2>
+            </div>
+            <ul>
+                <div class="btn">
+                  <i class="fas fa-times close-btn"></i>
+                </div>
+                <li><a href="../TeacherDashboard/t.html">Home</a></li>
+                <li><a href="../addAttendance/aA.html">Upload Attendance</a></li>
+                <li><a href="../addMarks/aM.html">Upload Marks</a></li>
+                <li><a href="../changePassword/cP.html">Change Password</a></li>
+                <li><a href="../subjects/s.html">My Courses</a></li>
+              </ul>
+            <div class="btn">
+              <i class="fas fa-bars menu-btn"></i>
+            </div>
+          </nav>
+        </div>
+      </header>
+    <div class="container">
+        <h1>Add Marks</h1>
+        <br><hr><br>
+        <form id="marksForm">
+            <label for="subjectId">Subject ID:</label>
+            <input type="text" id="subjectId" name="subjectId" required><br><br>
+            <div id="marksContainer">
+                <div class="studentMarks">
+                    <input type="text" class="enrollmentNo" name="enrollmentNo[]" placeholder="Enrollment No" required>
+                    <input type="number" class="marks" name="marks[]" placeholder="Marks" required>
+                    <input type="number" class="totalMarks" name="totalMarks[]" placeholder="Total Marks" required>
+                    <button type="button" class="addBtn">+</button>
+                    <button type="button" class="removeBtn">-</button>
+                </div>
+            </div><br>
+            <label for="pvtkey">Upload Digital Certificate:</label>
+            <input type="file" id="pdfFile" accept=".pdf" name="pvtkey"><br>
+            <br>
+            <button type="submit">Upload Marks</button>
+        </form>
+    </div>
+    <section class="footer">
+        <div class="footer-row">
+            <div class="footer-col">
+                <h4>Info</h4>
+                <ul class="links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Compressions</a></li>
+                    <li><a href="#">Customers</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">Collection</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul class="links">
+                    <li><a href="#">Customer Agreement</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">GDPR</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Media Kit</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Support</h4>
+                <p>
+                    Feel Free To Ask Your Questions
+                </p>
+                <form action="#">
+                    <input type="text" placeholder="question" required>
+                    <button type="submit">ASK</button>
+                </form>
+                <div class="icons">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-linkedin"></i>
+                    <i class="fa-brands fa-github"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="aM.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../Admin.css">
+</head>
+
+<body>
+    <header>
+        <div class="contain">
+          <nav>
+            <div class="logo">
+              <img src="img/logo.jpg" alt="" />
+              <h2><span>D</span>oc<span>S</span>hield</h2>
+            </div>
+            <ul>
+              <div class="btn">
+                <i class="fas fa-times close-btn"></i>
+              </div>
+              <li><a href="../dashboard/d.html">Home</a></li>
+              <li><a href="../addStudent/aS.html">Add Student</a></li>
+              <li><a href="../addSubject/aSb.html">Add Subject</a></li>
+              <li><a href="../addTeacher/aT.html">Add Teacher</a></li>
+              <li><a href="../staff/staff.html">Faculty Members</a></li>
+              <li><a href="../students/s.html">All Students</a></li>
+              <li><a href="../subjects/s.html">All Subjects</a></li>
+            </ul>
+            <div class="btn">
+              <i class="fas fa-bars menu-btn"></i>
+            </div>
+          </nav>
+        </div>
+      </header>
+    <div class="container">
+        <h1>Staff</h1>
+        <div id="teacherButtons"></div>
+    </div>
+
+    <div id="teacherModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="teacherName"></h2>
+            <div id="teacherSubjects"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            const token = getCookie('token');
+            console.log(token);
+            try {
+                const response = await fetch('http://localhost:5000/api/teacher', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        token: token
+                    }),
+                    credentials: 'same-origin'
+                });
+
+                const data = await response.json();
+                const teachers = data.teachers;
+                // console.log(teachers)
+                const teacherButtons = document.getElementById('teacherButtons');
+
+                teachers.forEach(teacher => {
+                    const button = document.createElement('button');
+                    button.textContent = `${teacher.name} (Reg No: ${teacher.regno})`;
+                    button.addEventListener('click', () => showTeacherDetails(teacher));
+                    teacherButtons.appendChild(button);
+                });
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        });
+
+        function showTeacherDetails(teacher) {
+            const teacherName = document.getElementById('teacherName');
+            const teacherSubjects = document.getElementById('teacherSubjects');
+
+            teacherName.textContent = teacher.name;
+            teacherSubjects.innerHTML = '';
+
+            teacher.subjectsTaught.forEach(subject => {
+                const subjectButton = document.createElement('button');
+                subjectButton.textContent = subject.name;
+                subjectButton.addEventListener('click', () => showSubjectDetails(subject));
+                teacherSubjects.appendChild(subjectButton);
+            });
+
+            const teacherModal = document.getElementById('teacherModal');
+            teacherModal.style.display = 'block';
+        }
+
+        function showSubjectDetails(subject) {
+            const teacherSubjects = document.getElementById('teacherSubjects');
+            const subjectStudents = document.createElement('div');
+            subject.students.forEach(student => {
+                const studentDiv = document.createElement('div');
+                studentDiv.textContent = `${student.name} (Enrollment No: ${student.enrollmentNumber})`;
+                subjectStudents.appendChild(studentDiv);
+            });
+
+            teacherSubjects.appendChild(subjectStudents);
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        const closeModal = document.getElementsByClassName('close')[0];
+        closeModal.onclick = function () {
+            const teacherModal = document.getElementById('teacherModal');
+            teacherModal.style.display = 'none';
+        };
+
+        window.onclick = function (event) {
+            const teacherModal = document.getElementById('teacherModal');
+            if (event.target == teacherModal) {
+                teacherModal.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+
+</html>

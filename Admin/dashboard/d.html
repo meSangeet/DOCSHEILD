@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="../Admin.css">
+<title>Admin Dashboard</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.option {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    background: #10182F;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.option:hover {
+    background: black;
+}
+</style>
+</head>
+<body>
+    <header>
+        <div class="contain">
+          <nav>
+            <div class="logo">
+              <img src="img/logo.jpg" alt="" />
+              <h2><span>D</span>oc<span>S</span>hield</h2>
+            </div>
+          </nav>
+        </div>
+      </header>
+<div class="container">
+    <h1>Admin Dashboard</h1>
+    <div class="options">
+        <div class="option" onclick="location.href='../addTeacher/aT.html';">Add Teacher</div>
+        <div class="option" onclick="location.href='../addSubject/aSb.html';">Add Subject</div>
+        <div class="option" onclick="location.href='../addStudent/aS.html';">Add Student</div>
+        <div class="option" onclick="location.href='../students/s.html';">All Students</div>
+        <div class="option" onclick="location.href='../subjects/s.html';">All Subjects</div>
+        <div class="option" onclick="location.href='../../index.html';">Logout</div>
+    </div>
+</div>
+</body>
+</html>

@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
         const responseData = await response.json();
         alert(responseData.message);
+        setTimeout(()=>{
+          window.location.href = '../dashboard/d.html';
+      },2000);
       } catch (error) {
         console.error('Error:', error);
         alert('Failed to create subject');

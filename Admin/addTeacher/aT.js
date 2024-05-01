@@ -29,6 +29,9 @@ document.getElementById('addTeacherForm').addEventListener('submit', async funct
 
         if (response.ok) {
             alert(responseData.message);
+            setTimeout(()=>{
+                window.location.href = '../dashboard/d.html';
+            }, 2000);
         } else {
             alert('Failed to add teacher');
         }

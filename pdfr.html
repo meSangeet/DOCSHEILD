@@ -37,7 +37,10 @@
                     textContent += text.items.map(item => item.str).join(' ');
                 }
 
-                alert(textContent);
+                let str = textContent;
+                let colonIndex = str.indexOf(':');
+                let mainPrivateKey = str.substring(colonIndex + 2);
+
             };
 
             reader.readAsArrayBuffer(file);

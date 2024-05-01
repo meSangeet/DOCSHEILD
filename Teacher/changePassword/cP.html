@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Change Password Page</title>
+    <link rel="stylesheet" href="../Admin.css">
     <style>
         /* Add your CSS styles here */
         body {
@@ -36,14 +37,14 @@
         }
 
         button {
-            background-color: #4caf50;
+            background: #10182F;
             color: white;
             border: none;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: black;
         }
 
         #output {
@@ -57,6 +58,19 @@
 </head>
 
 <body>
+    <header>
+        <div class="contain">
+          <nav>
+            <div class="logo">
+              <img src="img/logo.jpg" alt="" />
+              <h2><span>D</span>oc<span>S</span>hield</h2>
+            </div>
+            <div class="btn">
+              <i class="fas fa-bars menu-btn"></i>
+            </div>
+          </nav>
+        </div>
+      </header>
     <div class="container">
         <h1>Change Password</h1>
         <form id="changePasswordForm">
@@ -68,12 +82,55 @@
             <input type="password" id="oldPassword" name="oldPassword" required><br>
             <label for="newPassword">New Password:</label>
             <input type="password" id="newPassword" name="newPassword" required><br>
-            <input type="file" id="pdfFile" accept=".pdf"><br>
+            <br>
+            <label for="hi">Upload Digital Certificate:</label>
+            <input type="file" name="hi" id="pdfFile" accept=".pdf"><br>
+            <br>
             <button type="button" onclick="changePassword()">Change Password</button>
         </form>
         <div id="output"></div>
     </div>
-
+    <section class="footer">
+        <div class="footer-row">
+            <div class="footer-col">
+                <h4>Info</h4>
+                <ul class="links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Compressions</a></li>
+                    <li><a href="#">Customers</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">Collection</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul class="links">
+                    <li><a href="#">Customer Agreement</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">GDPR</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Media Kit</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Support</h4>
+                <p>
+                    Feel Free To Ask Your Questions
+                </p>
+                <form action="#">
+                    <input type="text" placeholder="question" required>
+                    <button type="submit">ASK</button>
+                </form>
+                <div class="icons">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-linkedin"></i>
+                    <i class="fa-brands fa-github"></i>
+                </div>
+            </div>
+        </div>
+    </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
 
     <script>
@@ -132,6 +189,9 @@
 
                     if (response.ok) {
                         document.getElementById('output').textContent = responseData.message;
+                        setTimeout(() => {
+                            window.location.href = '../../index.html';
+                        }, 5000);
                     } else {
                         document.getElementById('output').textContent = 'Failed to change password';
                     }

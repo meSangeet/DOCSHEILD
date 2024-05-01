@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../Admin.css">
+</head>
+
+<body>
+    <header>
+        <div class="contain">
+          <nav>
+            <div class="logo">
+              <img src="img/logo.jpg" alt="" />
+              <h2><span>D</span>oc<span>S</span>hield</h2>
+            </div>
+            <ul>
+              <div class="btn">
+                <i class="fas fa-times close-btn"></i>
+              </div>
+              <li><a href="../TeacherDashboard/t.html">Home</a></li>
+              <li><a href="../addAttendance/aA.html">Upload Attendance</a></li>
+              <li><a href="../addMarks/aM.html">Upload Marks</a></li>
+              <li><a href="../changePassword/cP.html">Change Password</a></li>
+              <li><a href="../staff/staff.html">My Courses</a></li>
+            </ul>
+            <div class="btn">
+              <i class="fas fa-bars menu-btn"></i>
+            </div>
+          </nav>
+        </div>
+      </header>
+    <div class="container">
+        <h1>My Courses</h1>
+        <br><hr><br><br>
+        <div id="courseButtons"></div>
+    </div>
+
+    <div class="modal" id="courseDetailsModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="courseDetails"></div>
+        </div>
+    </div>
+    <section class="footer">
+        <div class="footer-row">
+            <div class="footer-col">
+                <h4>Info</h4>
+                <ul class="links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Compressions</a></li>
+                    <li><a href="#">Customers</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">Collection</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul class="links">
+                    <li><a href="#">Customer Agreement</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">GDPR</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Media Kit</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Support</h4>
+                <p>
+                    Feel Free To Ask Your Questions
+                </p>
+                <form action="#">
+                    <input type="text" placeholder="question" required>
+                    <button type="submit">ASK</button>
+                </form>
+                <div class="icons">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-linkedin"></i>
+                    <i class="fa-brands fa-github"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        async function getSubjects() {
+            const token = getCookie('token');
+            console.log(token);
+            try {
+                const response = await fetch('http://localhost:5000/api/teacher/getsubjects', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token }),
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                console.log(data);
+                if (response.ok) {
+                    displaySubjects(data.subjects);
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                alert('Failed to fetch subjects');
+            }
+        }
+
+        function displaySubjects(subjects) {
+            const courseButtons = document.getElementById('courseButtons');
+            subjects.forEach(subject => {
+                const button = document.createElement('button');
+                button.textContent = subject.name;
+                button.onclick = function () {
+                    displaySubjectDetails(subject);
+                };
+                courseButtons.appendChild(button);
+            });
+        }
+
+        function displaySubjectDetails(subject) {
+            const modal = document.getElementById('courseDetailsModal');
+            const modalContent = document.getElementById('courseDetails');
+            modalContent.innerHTML = `
+                <h2>Subject Details</h2>
+                <br><hr><br>
+                <p><strong>Subject ID:</strong> ${subject._id}</p>
+                <p><strong>Subject Name:</strong> ${subject.name}</p>
+                <p><strong>Teacher Name:</strong> ${subject.teacher.name}</p>
+                <br><hr><br>
+                <h3>Students:</h3>
+                <br><hr><br>
+                <ul>
+                    ${subject.students.map(student => `
+                        <li>
+                            <strong>Name:</strong> ${student.name}<br>
+                            <strong>Enrollment Number:</strong> ${student.enrollmentNumber}<br>
+                            <strong>Attendance:</strong> ${student.attendance}<br>
+                            <strong>Total Attendance:</strong> ${student.totalAttendance}<br>
+                            <strong>Marks:</strong> ${student.marks}<br>
+                            <strong>Total Marks:</strong> ${student.totalMarks}
+                        </li>
+                        <br>
+                    `).join('')}
+                </ul>
+            `;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Disable scrolling
+            modal.onclick = function (event) {
+                if (event.target === modal || event.target.className === 'close') {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = ''; // Enable scrolling
+                }
+            };
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        window.onload = getSubjects;
+    </script>
+</body>
+
+</html>

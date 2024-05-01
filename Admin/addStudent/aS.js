@@ -56,6 +56,9 @@ document.getElementById('addStudentsForm').addEventListener('submit', async func
 
         if (response.ok) {
             alert(responseData.message);
+            setTimeout(()=>{
+                window.location.href = '../dashboard/d.html';
+            },2000);
         } else {
             alert('Failed to add students');
         }
