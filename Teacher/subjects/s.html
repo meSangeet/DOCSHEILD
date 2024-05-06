@@ -126,40 +126,52 @@
         }
 
         function displaySubjectDetails(subject) {
-            const modal = document.getElementById('courseDetailsModal');
-            const modalContent = document.getElementById('courseDetails');
-            modalContent.innerHTML = `
-                <h2>Subject Details</h2>
-                <br><hr><br>
-                <p><strong>Subject ID:</strong> ${subject._id}</p>
-                <p><strong>Subject Name:</strong> ${subject.name}</p>
-                <p><strong>Teacher Name:</strong> ${subject.teacher.name}</p>
-                <br><hr><br>
-                <h3>Students:</h3>
-                <br><hr><br>
-                <ul>
-                    ${subject.students.map(student => `
-                        <li>
-                            <strong>Name:</strong> ${student.name}<br>
-                            <strong>Enrollment Number:</strong> ${student.enrollmentNumber}<br>
-                            <strong>Attendance:</strong> ${student.attendance}<br>
-                            <strong>Total Attendance:</strong> ${student.totalAttendance}<br>
-                            <strong>Marks:</strong> ${student.marks}<br>
-                            <strong>Total Marks:</strong> ${student.totalMarks}
-                        </li>
-                        <br>
-                    `).join('')}
-                </ul>
-            `;
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Disable scrolling
-            modal.onclick = function (event) {
-                if (event.target === modal || event.target.className === 'close') {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = ''; // Enable scrolling
-                }
-            };
+    const modal = document.getElementById('courseDetailsModal');
+    const modalContent = document.getElementById('courseDetails');
+    modalContent.innerHTML = `
+        <h2>Subject Details</h2>
+        <br><hr><br>
+        <p><strong>Subject ID:</strong> ${subject._id}</p>
+        <p><strong>Subject Name:</strong> ${subject.name}</p>
+        <p><strong>Teacher Name:</strong> ${subject.teacher.name}</p>
+        <br><hr><br>
+        <h3>Students:</h3>
+        <br><hr><br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Enrollment Number</th>
+                    <th>Attendance</th>
+                    <th>Total Attendance</th>
+                    <th>Marks</th>
+                    <th>Total Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${subject.students.map(student => `
+                    <tr>
+                        <td>${student.name}</td>
+                        <td>${student.enrollmentNumber}</td>
+                        <td>${student.attendance}</td>
+                        <td>${student.totalAttendance}</td>
+                        <td>${student.marks}</td>
+                        <td>${student.totalMarks}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Disable scrolling
+    modal.onclick = function (event) {
+        if (event.target === modal || event.target.className === 'close') {
+            modal.style.display = 'none';
+            document.body.style.overflow = ''; // Enable scrolling
         }
+    };
+}
+
 
         function getCookie(name) {
             const value = `; ${document.cookie}`;

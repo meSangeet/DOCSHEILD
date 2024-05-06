@@ -8,6 +8,80 @@
     <title>My Courses</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="../Admin.css">
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,6 +103,8 @@
               <li><a href="../staff/staff.html">Faculty Members</a></li>
               <li><a href="../students/s.html">All Students</a></li>
               <li><a href="../subjects/s.html">All Subjects</a></li>
+              <li><a href="../reset/r.html">Reset DC</a></li>
+              <li><a href="../../index.html">Logout</a></li>
             </ul>
             <div class="btn">
               <i class="fas fa-bars menu-btn"></i>
@@ -49,6 +125,7 @@
             <div id="courseDetails"></div>
         </div>
     </div>
+
     <section class="footer">
         <div class="footer-row">
             <div class="footer-col">
@@ -90,6 +167,7 @@
             </div>
         </div>
     </section>
+
     <script>
         async function getSubjects() {
             const token = getCookie('token');
@@ -134,25 +212,26 @@
             modalContent.innerHTML = `
                 <h2 style="color: #10182F">Subject Details</h2>
                 <br><hr><br>
-                <p><strong>Subject ID:</strong> ${subject._id}</p>
-                <p><strong>Subject Name:</strong> ${subject.name}</p>
-                <p><strong>Teacher Name:</strong> ${subject.teacher.name}</p>
-                <br><hr><br>
-                <h3>Students:</h3>
-                <br><hr><br>
-                <ul>
+                <table>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Enrollment Number</th>
+                        <th>Attendance</th>
+                        <th>Total Attendance</th>
+                        <th>Marks</th>
+                        <th>Total Marks</th>
+                    </tr>
                     ${subject.students.map(student => `
-                        <li>
-                            <br>
-                            <strong>Name : </strong> ${student.name}<br>
-                            <strong>Enrollment Number:</strong> ${student.enrollmentNumber}<br>
-                            <strong>Attendance:</strong> ${student.attendance}<br>
-                            <strong>Total Attendance:</strong> ${student.totalAttendance}<br>
-                            <strong>Marks:</strong> ${student.marks}<br>
-                            <strong>Total Marks:</strong> ${student.totalMarks}
-                        </li>
+                        <tr>
+                            <td>${student.name}</td>
+                            <td>${student.enrollmentNumber}</td>
+                            <td>${student.attendance}</td>
+                            <td>${student.totalAttendance}</td>
+                            <td>${student.marks}</td>
+                            <td>${student.totalMarks}</td>
+                        </tr>
                     `).join('')}
-                </ul>
+                </table>
             `;
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden'; // Disable scrolling

@@ -79,6 +79,33 @@
             z-index: 999;
             display: none;
         }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 
@@ -101,6 +128,8 @@
                     <li><a href="../staff/staff.html">Faculty Members</a></li>
                     <li><a href="../students/s.html">All Students</a></li>
                     <li><a href="../subjects/s.html">All Subjects</a></li>
+                    <li><a href="../reset/r.html">Reset DC</a></li>
+                    <li><a href="../../index.html">Logout</a></li>
                 </ul>
                 <div class="btn">
                     <i class="fas fa-bars menu-btn"></i>
@@ -121,7 +150,47 @@
     </div>
 
     <div id="pageBlur" class="blur"></div>
-
+    <section class="footer">
+        <div class="footer-row">
+            <div class="footer-col">
+                <h4>Info</h4>
+                <ul class="links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Compressions</a></li>
+                    <li><a href="#">Customers</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">Collection</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul class="links">
+                    <li><a href="#">Customer Agreement</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">GDPR</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Media Kit</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Support</h4>
+                <p>
+                    Feel Free To Ask Your Questions
+                </p>
+                <form action="#">
+                    <input type="text" placeholder="question" required>
+                    <button type="submit">ASK</button>
+                </form>
+                <div class="icons">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-linkedin"></i>
+                    <i class="fa-brands fa-github"></i>
+                </div>
+            </div>
+        </div>
+    </section>
     <script>
         function getCookie(name) {
             const value = `; ${document.cookie}`;
@@ -168,15 +237,30 @@
             const popup = document.getElementById('popup');
             const studentInfoDiv = document.getElementById('studentInfo');
             studentInfoDiv.innerHTML = `
-                <h2>${student.name} - Enroll no: ${student.enrollmentNumber}</h2>
+        <h2>${student.name} - Enroll no: ${student.enrollmentNumber}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject ID</th>
+                    <th>Attendance</th>
+                    <th>Total Attendance</th>
+                    <th>Marks</th>
+                    <th>Total Marks</th>
+                </tr>
+            </thead>
+            <tbody>
                 ${student.subjects.map(subject => `
-                    <div>
-                        <h3>Subject ID: ${subject._id}</h3>
-                        <p>Attendance: ${subject.attendance}/${subject.totalattendance}</p>
-                        <p>Marks: ${subject.marks}/${subject.totalmarks}</p>
-                    </div>
+                    <tr>
+                        <td>${subject._id}</td>
+                        <td>${subject.attendance}</td>
+                        <td>${subject.totalattendance}</td>
+                        <td>${subject.marks}</td>
+                        <td>${subject.totalmarks}</td>
+                    </tr>
                 `).join('')}
-            `;
+            </tbody>
+        </table>
+    `;
             popup.style.display = 'block';
             document.getElementById('pageBlur').style.display = 'block';
 
@@ -185,6 +269,7 @@
                 document.getElementById('pageBlur').style.display = 'none';
             });
         }
+
 
         document.addEventListener('DOMContentLoaded', () => {
             getStudents();

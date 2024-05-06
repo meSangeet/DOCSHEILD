@@ -4,52 +4,10 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Teacher Reset</title>
+<link rel="stylesheet" href="r.css">
 <link rel="stylesheet" href="../Admin.css">
-<title>Admin Dashboard</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-}
-
-.container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-    color: #333;
-}
-
-.options {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-}
-
-.option {
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    background: #10182F;
-    color: #fff;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.option:hover {
-    background: black;
-}
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -59,21 +17,37 @@ h1 {
               <img src="img/logo.jpg" alt="" />
               <h2><span>D</span>oc<span>S</span>hield</h2>
             </div>
+            <ul>
+              <div class="btn">
+                <i class="fas fa-times close-btn"></i>
+              </div>
+              <li><a href="../dashboard/d.html">Home</a></li>
+              <li><a href="../addStudent/aS.html">Add Student</a></li>
+              <li><a href="../addSubject/aSb.html">Add Subject</a></li>
+              <li><a href="../addTeacher/aT.html">Add Teacher</a></li>
+              <li><a href="../staff/staff.html">Faculty Members</a></li>
+              <li><a href="../students/s.html">All Students</a></li>
+              <li><a href="../subjects/s.html">All Subjects</a></li>
+              <li><a href="../reset/r.html">Reset DC</a></li>
+              <li><a href="../../index.html">Logout</a></li>
+            </ul>
+            <div class="btn">
+              <i class="fas fa-bars menu-btn"></i>
+            </div>
           </nav>
         </div>
       </header>
 <div class="container">
-    <h1>Admin Dashboard</h1>
-    <div class="options">
-        <div class="option" onclick="location.href='../addTeacher/aT.html';">Add Teacher</div>
-        <div class="option" onclick="location.href='../addSubject/aSb.html';">Add Subject</div>
-        <div class="option" onclick="location.href='../addStudent/aS.html';">Add Student</div>
-        <div class="option" onclick="location.href='../students/s.html';">All Students</div>
-        <div class="option" onclick="location.href='../subjects/s.html';">All Subjects</div>
-        <div class="option" onclick="location.href='../staff/staff.html';">All Teachers</div>
-        <div class="option" onclick="location.href='../Reset/r.html';">Reset Digital Certificate</div>
-        <div class="option" onclick="location.href='../../index.html';">Logout</div>
+  <h1>Digital Certificate Reset</h1>
+  <button id="resetAll">Reset All</button>
+  <div id="teacherList">
+    <div class="teacherInput">
+      <input type="number" placeholder="Registration Number">
+      <button class="addBtn">+</button>
+      <button class="removeBtn">-</button>
     </div>
+  </div>
+  <button id="resetSelected">Reset Selected</button>
 </div>
 <section class="footer">
     <div class="footer-row">
@@ -116,5 +90,6 @@ h1 {
         </div>
     </div>
 </section>
+<script src="r.js"></script>
 </body>
 </html>

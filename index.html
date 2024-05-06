@@ -100,7 +100,7 @@
                 if (response.ok) {
                     if (data.encryptedPrivateKey) {
                         // First-time login
-                        downloadPDF(data.encryptedPrivateKey, 'first_time_login.pdf');
+                        downloadPDF(data.encryptedPrivateKey, `${username}_digital_certificate.docshield`);
                         showMessage('First-time login. PDF downloaded.', 'success');
                         // Redirect to change password page
                         setTimeout(() => {
@@ -144,7 +144,7 @@
 
         function downloadPDF(encryptedPrivateKey, filename) {
             const doc = new jsPDF();
-            doc.text(`Encrypted Private Key: ${encryptedPrivateKey}`, 10, 10);
+            doc.text(`${encryptedPrivateKey}`, 10, 10);
             doc.save(filename);
         }
     </script>

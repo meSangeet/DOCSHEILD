@@ -29,8 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
   
         let str = textContent;
-        let colonIndex = str.indexOf(':');
-        let mainPrivateKey = str.substring(colonIndex + 2);
+        let mainPrivateKey = str;
   
         // console.log(mainPrivateKey)
   
